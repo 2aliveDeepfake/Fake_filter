@@ -5,15 +5,16 @@ import sys, os
 #학습할 이미지 변수가 train입니다.
 #work변수가 필터를 통과한 후 이미지입니다.
 
-#이미지 불러오기
+# 폴더 내 이미지 불러오기
 folder_path = "images/"
 folder_list = os.listdir(folder_path)
 
-
-for item in folder_list:  # 각 폴더 이름(hood_T)의 파일이름 얻기
+for item in folder_list:  # 폴더의 파일이름 얻기
 
     train = cv2.imread(folder_path+item)
     print(folder_path+item)
+
+    # 필터 적용 부분 ===================================
     #Emboss
     tmp = train.copy()
     tmp = cv2.cvtColor(tmp, cv2.COLOR_RGB2GRAY)
@@ -49,9 +50,18 @@ for item in folder_list:  # 각 폴더 이름(hood_T)의 파일이름 얻기
 
     tmp = tmp*a + b
 
+    #필터 적용 완료 =================================
+
     #필터 통과한 이미지 변수에 넣기
     work = tmp.copy()
-    cv2.imwrite("output/"+item, work)
+    output_path = "output/"+item
+
+    # output 경로가 없으면 폴더를 생성합니다.
+    if not os.path.exists(output_path):
+        os.mkdir(output_path)
+
+    cv2.imwrite(output_path, work)
+
     #이미지 출력
     # cv2.imshow("aaa", work)
     # cv2.waitKey()
