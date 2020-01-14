@@ -6,7 +6,7 @@ import sys, os
 #work변수가 필터를 통과한 후 이미지입니다.
 
 # 폴더 내 이미지 불러오기
-folder_path = "images/"
+folder_path = "fake_faceline/"
 folder_list = os.listdir(folder_path)
 
 for item in folder_list:  # 폴더의 파일이름 얻기
@@ -54,11 +54,12 @@ for item in folder_list:  # 폴더의 파일이름 얻기
 
     #필터 통과한 이미지 변수에 넣기
     work = tmp.copy()
-    output_path = "output/"+item
+    output_dir = "faceline_output/"
+    output_path = output_dir + item
 
     # output 경로가 없으면 폴더를 생성합니다.
-    if not os.path.exists(output_path):
-        os.mkdir(output_path)
+    if not os.path.exists(output_dir):
+        os.mkdir(output_dir)
 
     cv2.imwrite(output_path, work)
 
